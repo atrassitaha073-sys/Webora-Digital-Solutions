@@ -102,54 +102,142 @@ function Cube3D({ size = 120, delay = 0 }: { size?: number; delay?: number }) {
   );
 }
 
-function Sphere3D({ size = 200, delay = 0 }: { size?: number; delay?: number }) {
+function Planet3D({ size = 200, delay = 0 }: { size?: number; delay?: number }) {
   return (
     <motion.div
       className="relative"
-      style={{ width: size, height: size }}
-      initial={{ opacity: 0, scale: 0.5 }}
-      animate={{ 
-        opacity: 1,
-        scale: [1, 1.05, 1],
-        rotateY: [0, 360],
-      }}
-      transition={{
-        opacity: { duration: 1.5, delay },
-        scale: { duration: 4, repeat: Infinity, ease: "easeInOut", delay },
-        rotateY: { duration: 25, repeat: Infinity, ease: "linear", delay },
-      }}
+      style={{ width: size * 2, height: size * 2 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1.5, delay }}
     >
-      <div 
-        className="w-full h-full rounded-full"
-        style={{
-          background: `
-            radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3), transparent 50%),
-            radial-gradient(circle at 70% 70%, rgba(255,255,255,0.1), transparent 50%),
-            linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%)
-          `,
-          boxShadow: `
-            inset 0 0 60px rgba(255,255,255,0.1),
-            0 0 40px rgba(255,255,255,0.05)
-          `,
-        }}
+      {/* Orbital path */}
+      <motion.div
+        className="absolute inset-0 border border-white/10 rounded-full"
+        style={{ transform: "rotateX(70deg)" }}
       />
-      {[...Array(8)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute inset-0 border border-white/10 rounded-full"
+      <motion.div
+        className="absolute inset-[15%] border border-white/5 rounded-full"
+        style={{ transform: "rotateX(70deg)" }}
+      />
+
+      {/* Main Planet */}
+      <motion.div
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+        style={{ width: size, height: size }}
+        animate={{ rotateY: [0, 360] }}
+        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+      >
+        <div 
+          className="w-full h-full rounded-full relative overflow-hidden"
           style={{
-            transform: `rotateY(${i * 22.5}deg)`,
+            background: `
+              radial-gradient(circle at 25% 25%, rgba(255,255,255,0.4), transparent 40%),
+              radial-gradient(circle at 75% 75%, rgba(100,100,100,0.3), transparent 40%),
+              linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 50%, #0a0a0a 100%)
+            `,
+            boxShadow: `
+              inset -20px -20px 60px rgba(0,0,0,0.8),
+              inset 10px 10px 40px rgba(255,255,255,0.1),
+              0 0 80px rgba(255,255,255,0.1),
+              0 0 120px rgba(255,255,255,0.05)
+            `,
           }}
-          animate={{
-            opacity: [0.3, 0.6, 0.3],
-          }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            delay: i * 0.2,
+        >
+          {/* Surface details - continents */}
+          <div 
+            className="absolute w-[40%] h-[30%] rounded-full bg-white/10 blur-sm"
+            style={{ top: '20%', left: '15%' }}
+          />
+          <div 
+            className="absolute w-[35%] h-[25%] rounded-full bg-white/8 blur-sm"
+            style={{ top: '50%', left: '45%' }}
+          />
+          <div 
+            className="absolute w-[25%] h-[20%] rounded-full bg-white/6 blur-sm"
+            style={{ top: '35%', left: '60%' }}
+          />
+          {/* Atmosphere glow */}
+          <div 
+            className="absolute inset-0 rounded-full"
+            style={{
+              background: 'radial-gradient(circle at 30% 30%, rgba(255,255,255,0.15), transparent 60%)',
+            }}
+          />
+        </div>
+      </motion.div>
+
+      {/* Orbiting moon */}
+      <motion.div
+        className="absolute left-1/2 top-1/2"
+        style={{ 
+          width: size * 2, 
+          height: size * 2,
+          marginLeft: -size,
+          marginTop: -size,
+          transformStyle: "preserve-3d",
+        }}
+        animate={{ rotate: 360 }}
+        transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+      >
+        <motion.div
+          className="absolute rounded-full"
+          style={{
+            width: size * 0.2,
+            height: size * 0.2,
+            left: '85%',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            background: `
+              radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5), transparent 50%),
+              linear-gradient(135deg, #3a3a3a 0%, #1a1a1a 100%)
+            `,
+            boxShadow: `
+              inset -5px -5px 15px rgba(0,0,0,0.5),
+              0 0 20px rgba(255,255,255,0.1)
+            `,
           }}
         />
-      ))}
+      </motion.div>
+
+      {/* Second orbiting object - satellite */}
+      <motion.div
+        className="absolute left-1/2 top-1/2"
+        style={{ 
+          width: size * 1.5, 
+          height: size * 1.5,
+          marginLeft: -size * 0.75,
+          marginTop: -size * 0.75,
+          transform: "rotateX(60deg) rotateZ(30deg)",
+          transformStyle: "preserve-3d",
+        }}
+        animate={{ rotate: -360 }}
+        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+      >
+        <div
+          className="absolute w-3 h-3 bg-white/60 rounded-full"
+          style={{
+            left: '90%',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            boxShadow: '0 0 10px rgba(255,255,255,0.5)',
+          }}
+        />
+      </motion.div>
+
+      {/* Orbit ring effect */}
+      <motion.div
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+        style={{
+          width: size * 1.4,
+          height: size * 0.3,
+          border: '1px solid rgba(255,255,255,0.15)',
+          borderRadius: '50%',
+          transform: 'rotateX(75deg)',
+        }}
+        animate={{ rotateZ: [0, 360] }}
+        transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+      />
     </motion.div>
   );
 }
@@ -332,7 +420,7 @@ export default function Home() {
             >
               {/* Main Sphere */}
               <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                <Sphere3D size={220} delay={0} />
+                <Planet3D size={140} delay={0} />
               </div>
 
               {/* Floating Cube */}
@@ -570,7 +658,7 @@ export default function Home() {
           }}
           transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
         >
-          <Sphere3D size={400} />
+          <Planet3D size={250} />
         </motion.div>
         
         <div className="container mx-auto px-6 relative z-10">
