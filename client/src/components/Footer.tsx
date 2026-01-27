@@ -17,15 +17,15 @@ export function Footer() {
               Pioneering digital experiences through web innovation, automation workflows, and artificial intelligence integration.
             </p>
             <div className="flex gap-4">
-              {[Twitter, Github, Linkedin, Instagram].map((Icon, i) => (
-                <a 
-                  key={i} 
-                  href="#" 
-                  className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-white transition-all hover:-translate-y-1"
-                >
-                  <Icon size={18} />
-                </a>
-              ))}
+              <a 
+                href="https://www.instagram.com/webora_26/" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-white transition-all hover:-translate-y-1"
+                data-testid="link-instagram"
+              >
+                <Instagram size={18} />
+              </a>
             </div>
           </div>
 

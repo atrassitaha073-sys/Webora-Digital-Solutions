@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { CheckCircle2, Zap, Cpu, Globe } from "lucide-react";
+import { CheckCircle2, Zap, Cpu, Globe, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 
@@ -55,6 +55,29 @@ const plans = [
       "Less manual work",
       "More leads",
       "Intelligent business",
+    ],
+  },
+  {
+    name: "Webora Autopilot",
+    tagline: "Your business on autopilot",
+    icon: Rocket,
+    features: [
+      "Everything in AI Suite",
+      "Main AI agent (business brain)",
+      "Complete automations:",
+      "  - Client responses",
+      "  - Appointment scheduling",
+      "  - Quote generation",
+      "Tool integrations:",
+      "  - Email",
+      "  - WhatsApp",
+      "  - CRM",
+      "Tracking dashboard",
+      "Ongoing maintenance & optimization",
+    ],
+    results: [
+      "Fully automated operations",
+      "24/7 business intelligence",
     ],
   },
 ];
@@ -112,7 +135,7 @@ export default function Pricing() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
             {plans.map((plan, index) => (
               <motion.div
                 key={plan.name}
