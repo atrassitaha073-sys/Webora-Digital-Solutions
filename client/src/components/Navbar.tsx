@@ -18,6 +18,7 @@ export function Navbar() {
 
   const navLinks = [
     { name: "Services", href: "#services" },
+    { name: "Pricing", href: "/pricing", isPage: true },
     { name: "Portfolio", href: "#portfolio" },
     { name: "Contact", href: "#contact" },
   ];
@@ -50,15 +51,26 @@ export function Navbar() {
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              onClick={(e) => scrollToSection(e, link.href)}
-              className="text-sm font-medium text-gray-300 hover:text-white transition-colors relative group"
-            >
-              {link.name}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all group-hover:w-full" />
-            </a>
+            link.isPage ? (
+              <Link
+                key={link.name}
+                href={link.href}
+                className="text-sm font-medium text-gray-300 hover:text-white transition-colors relative group"
+              >
+                {link.name}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all group-hover:w-full" />
+              </Link>
+            ) : (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={(e) => scrollToSection(e, link.href)}
+                className="text-sm font-medium text-gray-300 hover:text-white transition-colors relative group"
+              >
+                {link.name}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all group-hover:w-full" />
+              </a>
+            )
           ))}
           <a
             href="#contact"
@@ -89,14 +101,25 @@ export function Navbar() {
           >
             <div className="container mx-auto px-6 py-8 flex flex-col gap-6">
               {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={(e) => scrollToSection(e, link.href)}
-                  className="text-2xl font-display font-bold text-white/80 hover:text-white"
-                >
-                  {link.name}
-                </a>
+                link.isPage ? (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-2xl font-display font-bold text-white/80 hover:text-white"
+                  >
+                    {link.name}
+                  </Link>
+                ) : (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    onClick={(e) => scrollToSection(e, link.href)}
+                    className="text-2xl font-display font-bold text-white/80 hover:text-white"
+                  >
+                    {link.name}
+                  </a>
+                )
               ))}
               <a
                 href="#contact"
