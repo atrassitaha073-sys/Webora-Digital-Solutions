@@ -13,9 +13,9 @@ Ce projet est configuré pour déployer sur Vercel avec:
 Ajoute ces variables dans Vercel Project Settings → Environment Variables:
 
 ```
-RESEND_API_KEY=re_eAoxkBkf_53QoDmB7QENTB5ySDrEXfidW
-OPENROUTER_API_KEY=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
-GROQ_API_KEY=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
+RESEND_API_KEY=your_key_here
+OPENROUTER_API_KEY=your_key_here
+GROQ_API_KEY=your_key_here
 DATABASE_URL=postgresql://...  (optionnel)
 ```
 
