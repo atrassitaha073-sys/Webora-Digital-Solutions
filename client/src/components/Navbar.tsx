@@ -18,9 +18,7 @@ export function Navbar() {
 
   const navLinks = [
     { name: "Services", href: "#services" },
-    { name: "Pricing", href: "/pricing", isPage: true },
-    { name: "Portfolio", href: "#portfolio" },
-    { name: "Contact", href: "#contact" },
+    { name: "Pricing", href: "#pricing" },
   ];
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
@@ -28,7 +26,8 @@ export function Navbar() {
     setMobileMenuOpen(false);
     const element = document.querySelector(id);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      const offsetTop = element.getBoundingClientRect().top + window.scrollY - 80; // 80px offset for fixed navbar
+      window.scrollTo({ top: offsetTop, behavior: "smooth" });
     }
   };
 

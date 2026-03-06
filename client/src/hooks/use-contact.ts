@@ -11,7 +11,9 @@ export function useSubmitContact() {
   return useMutation({
     mutationFn: async (data: ContactInput) => {
       // Validate data against schema before sending
+      console.log('📤 Form data before validation:', data);
       const validated = api.contact.submit.input.parse(data);
+      console.log('✅ Validated data:', validated);
       
       const res = await fetch(api.contact.submit.path, {
         method: api.contact.submit.method,
@@ -19,15 +21,26 @@ export function useSubmitContact() {
         body: JSON.stringify(validated),
       });
 
+      console.log('📡 Server response status:', res.status);
+      
       if (!res.ok) {
+        const errorText = await res.text();
+        console.error('❌ Server error response:', errorText);
+        
         if (res.status === 400) {
-          const error = api.contact.submit.responses[400].parse(await res.json());
-          throw new Error(error.message);
+          try {
+            const error = api.contact.submit.responses[400].parse(JSON.parse(errorText));
+            throw new Error(error.message);
+          } catch (e) {
+            throw new Error(errorText || "Invalid input");
+          }
         }
-        throw new Error("Failed to send message");
+        throw new Error("Failed to send message: " + res.statusText);
       }
       
-      return api.contact.submit.responses[201].parse(await res.json());
+      const response = await res.json();
+      console.log('✅ Success response:', response);
+      return api.contact.submit.responses[201].parse(response);
     },
     onSuccess: () => {
       toast({
@@ -37,6 +50,7 @@ export function useSubmitContact() {
       });
     },
     onError: (error) => {
+      console.error('🔴 Mutation error:', error);
       toast({
         title: "Error",
         description: error.message,

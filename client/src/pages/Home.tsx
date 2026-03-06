@@ -8,6 +8,7 @@ import { useSubmitContact } from "@/hooks/use-contact";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ServiceCard } from "@/components/ServiceCard";
+import { PricingPlans } from "@/components/PricingPlans";
 import { 
   Globe, 
   Sparkles, 
@@ -647,6 +648,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* PRICING SECTION */}
+      <PricingPlans showTitle={true} compact={false} />
+
       {/* CONTACT SECTION */}
       <section id="contact" className="py-24 bg-black relative overflow-hidden">
         {/* 3D decorative element */}
@@ -714,6 +718,53 @@ export default function Home() {
                   {form.formState.errors.email && (
                     <p className="text-red-500 text-xs mt-1">{form.formState.errors.email.message}</p>
                   )}
+                </motion.div>
+
+                <motion.div 
+                  className="space-y-2"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                >
+                  <label htmlFor="phone" className="text-sm font-medium text-gray-300">Phone Number (Optional)</label>
+                  <input
+                    {...form.register("phone")}
+                    type="tel"
+                    data-testid="input-phone"
+                    className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-white/40 focus:ring-1 focus:ring-white/40 transition-all"
+                    placeholder="+1 (555) 123-4567"
+                  />
+                  {form.formState.errors.phone && (
+                    <p className="text-red-500 text-xs mt-1">{form.formState.errors.phone.message}</p>
+                  )}
+                </motion.div>
+
+                <motion.div 
+                  className="space-y-2"
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                >
+                  <label htmlFor="plan" className="text-sm font-medium text-gray-300">Which plan interests you?</label>
+                  <select
+                    {...form.register("plan")}
+                    data-testid="select-plan"
+                    className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-white/40 focus:ring-1 focus:ring-white/40 transition-all appearance-none"
+                    style={{
+                      backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' d='M6 9L1 4h10z'/%3E%3C/svg%3E")`,
+                      backgroundRepeat: 'no-repeat',
+                      backgroundPosition: 'right 1rem center',
+                      paddingRight: '2.5rem',
+                    }}
+                  >
+                    <option value="Webora Basic" style={{ backgroundColor: '#1a1a1a', color: '#ffffff' }}>Webora Basic</option>
+                    <option value="Webora Advanced" style={{ backgroundColor: '#1a1a1a', color: '#ffffff' }}>Webora Advanced</option>
+                    <option value="Webora AI Suite" style={{ backgroundColor: '#1a1a1a', color: '#ffffff' }}>Webora AI Suite</option>
+                    <option value="Webora Autopilot" style={{ backgroundColor: '#1a1a1a', color: '#ffffff' }}>Webora Autopilot</option>
+                    <option value="Custom" style={{ backgroundColor: '#1a1a1a', color: '#ffffff' }}>Custom Solution</option>
+                  </select>
                 </motion.div>
               </div>
               
