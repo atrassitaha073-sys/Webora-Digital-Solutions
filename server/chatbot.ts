@@ -103,7 +103,7 @@ async function tryOpenRouter(userMessage: string): Promise<string> {
       'X-Title': 'Webora Digital',
     },
     body: JSON.stringify({
-      model: 'mistralai/mistral-7b-instruct',
+      model: 'anthropic/claude-3.5-sonnet',
       messages: [
         {
           role: 'system',
